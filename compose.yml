@@ -1,0 +1,198 @@
+version: "3"
+
+######################
+# NOMAD SERVERS EAST #
+######################
+# 192.168.1.120 --- 192.168.1.129
+services:
+  server0-est:
+    build:
+      context: .
+      dockerfile: nomad.dockerfile
+    depends_on:
+      - server3-est
+      - server4-est
+      - server5-est
+    hostname: server0-est
+    volumes:
+      - ./data/est/server0-est/nomad:/etc/nomad.d
+      - ./data/est/server0-est/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.120
+
+  server1-est:
+    build:
+      context: .
+      dockerfile: nomad.dockerfile
+    depends_on:
+      - server3-est
+      - server4-est
+      - server5-est
+    hostname: server1-est
+    volumes:
+      - ./data/est/server1-est/nomad:/etc/nomad.d
+      - ./data/est/server1-est/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.121
+
+
+  server2-est:
+    build:
+      context: .
+      dockerfile: nomad.dockerfile
+    depends_on:
+      - server3-est
+      - server4-est
+      - server5-est
+    hostname: server2-est
+    volumes:
+      - ./data/est/server2-est/nomad:/etc/nomad.d
+      - ./data/est/server2-est/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.122
+
+
+######################
+# NOMAD SERVERS WEST #
+######################
+# 192.168.1.220, 221, 222 ---> 192.168.1.229
+  server0-wst:
+    build:
+      context: .
+      dockerfile: nomad.dockerfile
+    depends_on:
+      - server3-wst
+      - server4-wst
+      - server5-wst
+    hostname: server0-wst
+    volumes:
+      - ./data/wst/server0-wst/nomad:/etc/nomad.d
+      - ./data/wst/server0-wst/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.220
+
+  server1-wst:
+    build:
+      context: .
+      dockerfile: nomad.dockerfile
+    depends_on:
+      - server3-wst
+      - server4-wst
+      - server5-wst
+    hostname: server1-wst
+    volumes:
+      - ./data/wst/server1-wst/nomad:/etc/nomad.d
+      - ./data/wst/server1-wst/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.221
+
+
+  server2-wst:
+    build:
+      context: .
+      dockerfile: nomad.dockerfile
+    depends_on:
+      - server3-wst
+      - server4-wst
+      - server5-wst
+    hostname: server2-wst
+    volumes:
+      - ./data/wst/server2-wst/nomad:/etc/nomad.d
+      - ./data/wst/server2-wst/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.222
+
+#######################
+# CONSUL SERVERS EAST #
+#######################
+# 192.168.1.130, 131, 132 ---> 192.168.1.139
+
+  server3-est:
+    build:
+      context: .
+      dockerfile: consul.dockerfile
+    hostname: server3-est
+    volumes:
+      - ./data/est/server3-est/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.130
+
+  server4-est:
+    build:
+      context: .
+      dockerfile: consul.dockerfile
+    hostname: server4-est
+    volumes:
+      - ./data/est/server4-est/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.131
+
+  server5-est:
+    build:
+      context: .
+      dockerfile: consul.dockerfile
+    hostname: server5-est
+    volumes:
+      - ./data/est/server5-est/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.132
+
+
+#######################
+# CONSUL SERVERS WEST #
+#######################
+# 192.168.1.230 --- 192.168.1.239
+
+  server3-wst:
+    build:
+      context: .
+      dockerfile: consul.dockerfile
+    hostname: server3-wst
+    volumes:
+      - ./data/wst/server3-wst/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.230
+
+  server4-wst:
+    build:
+      context: .
+      dockerfile: consul.dockerfile
+    hostname: server4-wst
+    volumes:
+      - ./data/wst/server4-wst/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.231
+
+  server5-wst:
+    build:
+      context: .
+      dockerfile: consul.dockerfile
+    hostname: server5-wst
+    volumes:
+      - ./data/wst/server5-wst/consul:/etc/consul.d
+    networks: 
+      net_hashi:
+        ipv4_address: 192.168.1.232
+
+networks:
+  net_hashi:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+          # ip-range: 192.168.1.128/25
