@@ -5,105 +5,105 @@ version: "3"
 ######################
 # 192.168.1.120 --- 192.168.1.129
 services:
-  server0-est:
+  east-nomad0:
     build:
       context: .
       dockerfile: nomad.dockerfile
     depends_on:
-      - server3-est
-      - server4-est
-      - server5-est
-    hostname: server0-est
+      - east-consul3
+      - east-consul4
+      - east-consul5
+    hostname: east-nomad0
     volumes:
-      - ./data/est/server0-est/nomad:/etc/nomad.d
-      - ./data/est/server0-est/consul:/etc/consul.d
+      - ./data/east/east-nomad0/nomad:/etc/nomad.d
+      - ./data/east/east-nomad0/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.120
 
-  server1-est:
+  east-nomad1:
     build:
       context: .
       dockerfile: nomad.dockerfile
     depends_on:
-      - server3-est
-      - server4-est
-      - server5-est
-    hostname: server1-est
+      - east-consul3
+      - east-consul4
+      - east-consul5
+    hostname: east-nomad1
     volumes:
-      - ./data/est/server1-est/nomad:/etc/nomad.d
-      - ./data/est/server1-est/consul:/etc/consul.d
+      - ./data/east/east-nomad1/nomad:/etc/nomad.d
+      - ./data/east/east-nomad1/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.121
 
 
-  server2-est:
+  east-nomad2:
     build:
       context: .
       dockerfile: nomad.dockerfile
     depends_on:
-      - server3-est
-      - server4-est
-      - server5-est
-    hostname: server2-est
+      - east-consul3
+      - east-consul4
+      - east-consul5
+    hostname: east-nomad2
     volumes:
-      - ./data/est/server2-est/nomad:/etc/nomad.d
-      - ./data/est/server2-est/consul:/etc/consul.d
+      - ./data/east/east-nomad2/nomad:/etc/nomad.d
+      - ./data/east/east-nomad2/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.122
 
 
 ######################
-# NOMAD SERVERS WEST #
+# NOMAD SERVERS west #
 ######################
 # 192.168.1.220, 221, 222 ---> 192.168.1.229
-  server0-wst:
+  west-nomad0:
     build:
       context: .
       dockerfile: nomad.dockerfile
     depends_on:
-      - server3-wst
-      - server4-wst
-      - server5-wst
-    hostname: server0-wst
+      - west-consul3
+      - west-consul4
+      - west-consul5
+    hostname: west-nomad0
     volumes:
-      - ./data/wst/server0-wst/nomad:/etc/nomad.d
-      - ./data/wst/server0-wst/consul:/etc/consul.d
+      - ./data/west/west-nomad0/nomad:/etc/nomad.d
+      - ./data/west/west-nomad0/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.220
 
-  server1-wst:
+  west-nomad1:
     build:
       context: .
       dockerfile: nomad.dockerfile
     depends_on:
-      - server3-wst
-      - server4-wst
-      - server5-wst
-    hostname: server1-wst
+      - west-consul3
+      - west-consul4
+      - west-consul5
+    hostname: west-nomad1
     volumes:
-      - ./data/wst/server1-wst/nomad:/etc/nomad.d
-      - ./data/wst/server1-wst/consul:/etc/consul.d
+      - ./data/west/west-nomad1/nomad:/etc/nomad.d
+      - ./data/west/west-nomad1/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.221
 
 
-  server2-wst:
+  west-nomad2:
     build:
       context: .
       dockerfile: nomad.dockerfile
     depends_on:
-      - server3-wst
-      - server4-wst
-      - server5-wst
-    hostname: server2-wst
+      - west-consul3
+      - west-consul4
+      - west-consul5
+    hostname: west-nomad2
     volumes:
-      - ./data/wst/server2-wst/nomad:/etc/nomad.d
-      - ./data/wst/server2-wst/consul:/etc/consul.d
+      - ./data/west/west-nomad2/nomad:/etc/nomad.d
+      - ./data/west/west-nomad2/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.222
@@ -113,74 +113,74 @@ services:
 #######################
 # 192.168.1.130, 131, 132 ---> 192.168.1.139
 
-  server3-est:
+  east-consul3:
     build:
       context: .
       dockerfile: consul.dockerfile
-    hostname: server3-est
+    hostname: east-consul3
     volumes:
-      - ./data/est/server3-est/consul:/etc/consul.d
+      - ./data/east/east-consul3/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.130
 
-  server4-est:
+  east-consul4:
     build:
       context: .
       dockerfile: consul.dockerfile
-    hostname: server4-est
+    hostname: east-consul4
     volumes:
-      - ./data/est/server4-est/consul:/etc/consul.d
+      - ./data/east/east-consul4/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.131
 
-  server5-est:
+  east-consul5:
     build:
       context: .
       dockerfile: consul.dockerfile
-    hostname: server5-est
+    hostname: east-consul5
     volumes:
-      - ./data/est/server5-est/consul:/etc/consul.d
+      - ./data/east/east-consul5/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.132
 
 
 #######################
-# CONSUL SERVERS WEST #
+# CONSUL SERVERS west #
 #######################
 # 192.168.1.230 --- 192.168.1.239
 
-  server3-wst:
+  west-consul3:
     build:
       context: .
       dockerfile: consul.dockerfile
-    hostname: server3-wst
+    hostname: west-consul3
     volumes:
-      - ./data/wst/server3-wst/consul:/etc/consul.d
+      - ./data/west/west-consul3/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.230
 
-  server4-wst:
+  west-consul4:
     build:
       context: .
       dockerfile: consul.dockerfile
-    hostname: server4-wst
+    hostname: west-consul4
     volumes:
-      - ./data/wst/server4-wst/consul:/etc/consul.d
+      - ./data/west/west-consul4/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.231
 
-  server5-wst:
+  west-consul5:
     build:
       context: .
       dockerfile: consul.dockerfile
-    hostname: server5-wst
+    hostname: west-consul5
     volumes:
-      - ./data/wst/server5-wst/consul:/etc/consul.d
+      - ./data/west/west-consul5/consul:/etc/consul.d
     networks: 
       net_hashi:
         ipv4_address: 192.168.1.232

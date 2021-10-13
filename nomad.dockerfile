@@ -1,16 +1,20 @@
 FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
+RUN apt-get install -y openssh-server
 RUN apt-get install -y unzip
 RUN apt-get install -y curl
 RUN apt-get install -y gnupg2
 RUN apt-get install -y iputils-ping
 RUN apt-get install -y iproute2
 RUN apt-get install -y tcpdump
+RUN apt-get install -y vim
+
 
 # ENVIRONMENT VARIABLES #
 #########################
-ENV NOMAD_VERSION="1.1.4"
-ENV CONSUL_VERSION="1.10.2"
+ENV NOMAD_VERSION="1.1.6"
+ENV CONSUL_VERSION="1.10.3"
 ENV ARCH="arm64"
 
 # Nomad download#
